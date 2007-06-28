@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.13.1
-%define release %mkrel 2
+%define release %mkrel 3
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -30,6 +30,14 @@ and is usable to write moderately complex programs.  (see the
 examples directory for some examples of the simpler programs you could
 write).
 
+%package devel
+Group: Development/C
+Summary: python-gobject devel 
+Requires: %name = %version
+
+%description devel
+python-gobject devel.
+
 
 %prep
 %setup -q -n %oname-%version
@@ -51,9 +59,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc README NEWS AUTHORS ChangeLog
 %py_platsitedir/pygtk*
 %py_platsitedir/gtk-2.0/
-%_libdir/pkgconfig/*.pc
-%_includedir/pygtk-2.0/
 %_datadir/pygobject/
 %_datadir/gtk-doc/html/pygobject/
 
+%files devel
+%defattr(-,root,root)
+%_libdir/pkgconfig/*.pc
+%_includedir/pygtk-2.0/
 
