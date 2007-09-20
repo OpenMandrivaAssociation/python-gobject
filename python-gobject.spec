@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.14.0
-%define release %mkrel 1
+%define release %mkrel 2
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -60,10 +60,10 @@ rm -rf $RPM_BUILD_ROOT
 %py_platsitedir/pygtk*
 %py_platsitedir/gtk-2.0/
 %_datadir/pygobject/
-%_datadir/gtk-doc/html/pygobject/
 
 %files devel
 %defattr(-,root,root)
 %_libdir/pkgconfig/*.pc
 %_includedir/pygtk-2.0/
+%_datadir/gtk-doc/html/pygobject/
 
