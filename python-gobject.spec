@@ -16,6 +16,7 @@ Patch: pygobject-2.11.0-fixdetection.patch
 License: LGPL
 Group: Development/Python
 Url: http://www.gnome.org
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: python-devel
 BuildRequires: glib2-devel
 BuildRequires: gtk-doc
