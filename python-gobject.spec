@@ -32,7 +32,7 @@ write).
 
 %package devel
 Group: Development/C
-Summary: python-gobject devel 
+Summary: Python-gobject devel 
 Requires: %name = %version
 
 %description devel
