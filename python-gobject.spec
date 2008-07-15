@@ -13,7 +13,7 @@ Version: %{version}
 Release: %{release}
 Source0: http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.bz2
 Patch: pygobject-2.11.0-fixdetection.patch
-License: LGPL
+License: LGPLv2+
 Group: Development/Python
 Url: http://www.gnome.org
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
