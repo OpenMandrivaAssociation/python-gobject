@@ -1,6 +1,6 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.14.2
+%define version 2.15.0
 %define release %mkrel 1
 
 %if %mdkversion < 200610
@@ -32,11 +32,14 @@ write).
 
 %package devel
 Group: Development/C
-Summary: Python-gobject devel 
+Summary: Python-gobject development files
 Requires: %name = %version
+Conflicts: pygtk2.0-devel < 2.12.1-4mdv
 
 %description devel
-python-gobject devel.
+This contains the python-gobject development files, including C
+header, pkg-config file, gtk-doc generated API documentation and a code
+generation tool.
 
 
 %prep
@@ -63,6 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root)
+%_bindir/pygtk-codegen-2.0
 %_libdir/pkgconfig/*.pc
 %_includedir/pygtk-2.0/
 %_datadir/gtk-doc/html/pygobject/
