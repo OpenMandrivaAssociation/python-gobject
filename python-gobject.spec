@@ -1,12 +1,15 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.15.1
+%define version 2.15.2
 %define release %mkrel 1
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
 %endif
 
+%define api 2.0
+%define major 0
+%define libname %mklibname pyglib %api %major
 Summary: GObject Python bindings 
 Name: %{name}
 Version: %{version}
@@ -30,10 +33,22 @@ and is usable to write moderately complex programs.  (see the
 examples directory for some examples of the simpler programs you could
 write).
 
+%package -n %libname
+Group: System/Libraries
+Summary: Python Glib bindings shared library
+
+%description -n %libname
+This archive contains bindings for the GObject, to be used in Python
+It is a fairly complete set of bindings, it's already rather useful, 
+and is usable to write moderately complex programs.  (see the
+examples directory for some examples of the simpler programs you could
+write).
+
 %package devel
 Group: Development/C
 Summary: Python-gobject development files
 Requires: %name = %version
+Requires: %libname = %version
 
 %description devel
 This contains the python-gobject development files, including C
@@ -46,8 +61,9 @@ generation tool.
 %patch -p1
 
 %build
+%define _disable_ld_no_undefined 1
 %configure2_5x
-make
+%make
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -56,6 +72,11 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%if %mdvver < 200900
+%post -n %libname -p /sbin/ldconfig
+%postun -n %libname -p /sbin/ldconfig
+%endif
+
 %files
 %defattr(-,root,root)
 %doc README NEWS AUTHORS ChangeLog
@@ -63,10 +84,16 @@ rm -rf $RPM_BUILD_ROOT
 %py_platsitedir/gtk-2.0/
 %_datadir/pygobject/
 
+%files -n %libname
+%defattr(-,root,root)
+%_libdir/libpyglib-%api.so.%{major}*
+
 %files devel
 %defattr(-,root,root)
 %_bindir/pygobject-codegen-2.0
 %_libdir/pkgconfig/*.pc
+%_libdir/libpyglib-%api.so
+%_libdir/libpyglib-%api.la
 %_includedir/pygtk-2.0/
 %_datadir/gtk-doc/html/pygobject/
 
