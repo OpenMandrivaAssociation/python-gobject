@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.15.2
-%define release %mkrel 1
+%define release %mkrel 2
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -16,6 +16,9 @@ Version: %{version}
 Release: %{release}
 Source0: http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.bz2
 Patch: pygobject-2.11.0-fixdetection.patch
+# gw fix API breakage affecting pygtk
+# http://bugzilla.gnome.org/show_bug.cgi?id=544946
+Patch1: pygobject-fix-api-breakage.patch
 License: LGPLv2+
 Group: Development/Python
 Url: http://www.gnome.org
@@ -59,6 +62,7 @@ generation tool.
 %prep
 %setup -q -n %oname-%version
 %patch -p1
+%patch1 -p0 -b .fix-api-breakage
 
 %build
 %define _disable_ld_no_undefined 1
