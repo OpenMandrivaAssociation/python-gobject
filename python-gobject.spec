@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.15.3
-%define release %mkrel 1
+%define release %mkrel 2
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -22,8 +22,7 @@ Url: http://www.gnome.org
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: python-devel
 BuildRequires: glib2-devel
-#gw libffi.pc doesn't exist
-#BuildRequires: libffi-devel
+BuildRequires: ffi5-devel
 BuildRequires: gtk-doc
 BuildRequires: automake1.8
 Conflicts: pygtk2.0 < 2.8.3
