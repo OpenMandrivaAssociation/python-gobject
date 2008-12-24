@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.15.4
-%define release %mkrel 1
+%define release %mkrel 2
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -19,6 +19,7 @@ Patch: pygobject-2.11.0-fixdetection.patch
 #gw fix dep on libffi
 # http://bugzilla.gnome.org/show_bug.cgi?id=550231
 Patch1: pygobject-2.15.3-libffi-in-pkg-config.patch
+Patch2: pygobject-2.15.4-fix-format_error.diff
 License: LGPLv2+
 Group: Development/Python
 Url: http://www.gnome.org
@@ -64,6 +65,8 @@ generation tool.
 %setup -q -n %oname-%version
 %patch -p1
 %patch1 -p1
+%patch2 -p0
+
 aclocal -I m4
 autoconf
 automake
