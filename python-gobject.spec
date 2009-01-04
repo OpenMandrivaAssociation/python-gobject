@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.15.4
-%define release %mkrel 2
+%define version 2.16.0
+%define release %mkrel 1
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
