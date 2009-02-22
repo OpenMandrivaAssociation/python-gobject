@@ -1,6 +1,6 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.16.0
+%define version 2.16.1
 %define release %mkrel 1
 
 %if %mdkversion < 200610
@@ -15,7 +15,7 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source0: http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.bz2
-Patch: pygobject-2.11.0-fixdetection.patch
+Patch: pygobject-2.16.1-fixdetection.patch
 #gw fix dep on libffi
 # http://bugzilla.gnome.org/show_bug.cgi?id=550231
 Patch1: pygobject-2.15.3-libffi-in-pkg-config.patch
