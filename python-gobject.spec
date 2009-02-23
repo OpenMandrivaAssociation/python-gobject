@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.16.1
-%define release %mkrel 1
+%define release %mkrel 2
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -63,7 +63,7 @@ generation tool.
 
 %prep
 %setup -q -n %oname-%version
-%patch -p1
+%patch -p1 -b .fixdetection
 %patch1 -p1
 %patch2 -p0
 
