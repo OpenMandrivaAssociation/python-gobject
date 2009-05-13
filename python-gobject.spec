@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.17.0
-%define release %mkrel 2
+%define release %mkrel 3
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -53,6 +53,8 @@ Group: Development/C
 Summary: Python-gobject development files
 Requires: %name = %version
 Requires: %libname = %version
+#gw requires.private in the pkg-config file
+Requires: ffi5-devel
 
 %description devel
 This contains the python-gobject development files, including C
