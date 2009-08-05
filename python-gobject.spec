@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.18.0
-%define release %mkrel 1
+%define release %mkrel 2
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -49,8 +49,8 @@ write).
 %package devel
 Group: Development/C
 Summary: Python-gobject development files
-Requires: %name = %version
-Requires: %libname = %version
+Requires: %name = %version-%release
+Requires: %libname = %version-%release
 #gw requires.private in the pkg-config file
 Requires: ffi5-devel
 
@@ -73,6 +73,8 @@ generation tool.
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
+#gw this must be executable, it is used for building docs, e.g. in pyclutter
+chmod 755 %buildroot%_datadir/pygobject/xsl/fixxref.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -87,7 +89,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc README NEWS AUTHORS ChangeLog
 %py_platsitedir/pygtk*
 %py_platsitedir/gtk-2.0/
-%_datadir/pygobject/
 
 %files -n %libname
 %defattr(-,root,root)
@@ -101,4 +102,4 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/libpyglib-%api-python.la
 %_includedir/pygtk-2.0/
 %_datadir/gtk-doc/html/pygobject/
-
+%_datadir/pygobject/
