@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.18.0
-%define release %mkrel 2
+%define version 2.19.0
+%define release %mkrel 1
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -101,5 +101,6 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/libpyglib-%api-python.so
 %_libdir/libpyglib-%api-python.la
 %_includedir/pygtk-2.0/
+%_includedir/%oname
 %_datadir/gtk-doc/html/pygobject/
 %_datadir/pygobject/
