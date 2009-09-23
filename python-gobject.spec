@@ -1,6 +1,6 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.19.0
+%define version 2.20.0
 %define release %mkrel 1
 
 %if %mdkversion < 200610
