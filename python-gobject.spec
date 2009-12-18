@@ -1,6 +1,6 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.20.0
+%define version 2.21.0
 %define release %mkrel 1
 
 %if %mdkversion < 200610
@@ -22,7 +22,7 @@ Group: Development/Python
 Url: http://www.gnome.org
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: python-devel
-BuildRequires: glib2-devel
+BuildRequires: glib2-devel >= 2.23.0-3mdv
 BuildRequires: ffi5-devel
 BuildRequires: gtk-doc
 BuildRequires: automake1.8
@@ -101,6 +101,5 @@ rm -rf $RPM_BUILD_ROOT
 %_libdir/libpyglib-%api-python.so
 %_libdir/libpyglib-%api-python.la
 %_includedir/pygtk-2.0/
-%_includedir/%oname
 %_datadir/gtk-doc/html/pygobject/
 %_datadir/pygobject/
