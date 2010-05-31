@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.21.1
-%define release %mkrel 1
+%define release %mkrel 2
 
 %if %mdkversion < 200610
 %define py_platsitedir %_libdir/python%pyver/site-packages/
@@ -17,6 +17,7 @@ Release: %{release}
 Source0: http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.bz2
 Patch: pygobject-2.16.1-fixdetection.patch
 Patch2: pygobject-2.15.4-fix-format_error.diff
+Patch3: pygobject-2.21.1-fix-link.patch
 License: LGPLv2+
 Group: Development/Python
 Url: http://www.gnome.org
@@ -25,7 +26,7 @@ BuildRequires: python-devel
 BuildRequires: glib2-devel >= 2.23.0-3mdv
 BuildRequires: ffi5-devel
 BuildRequires: gtk-doc
-BuildRequires: automake1.8
+BuildRequires: automake
 Conflicts: pygtk2.0 < 2.8.3
 
 %description
@@ -64,9 +65,9 @@ generation tool.
 %setup -q -n %oname-%version
 %patch -p1 -b .fixdetection
 %patch2 -p0
+%patch3 -p0
 
 %build
-%define _disable_ld_no_undefined 1
 %configure2_5x
 %make
 
