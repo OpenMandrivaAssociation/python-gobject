@@ -1,11 +1,7 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.21.1
-%define release %mkrel 2
-
-%if %mdkversion < 200610
-%define py_platsitedir %_libdir/python%pyver/site-packages/
-%endif
+%define version 2.21.5
+%define release %mkrel 1
 
 %define api 2.0
 %define major 0
@@ -25,9 +21,12 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: python-devel
 BuildRequires: glib2-devel >= 2.23.0-3mdv
 BuildRequires: ffi5-devel
+BuildRequires: gobject-introspection-devel >= 0.9.1
+BuildRequires: python-cairo-devel
 BuildRequires: gtk-doc
 BuildRequires: automake
 Conflicts: pygtk2.0 < 2.8.3
+Requires: python-cairo
 
 %description
 This archive contains bindings for the GObject, to be used in Python
