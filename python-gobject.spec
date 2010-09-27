@@ -1,6 +1,6 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.21.5
+%define version 2.26.0
 %define release %mkrel 1
 
 %define api 2.0
@@ -12,7 +12,7 @@ Version: %{version}
 Release: %{release}
 Source0: http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.bz2
 Patch: pygobject-2.16.1-fixdetection.patch
-Patch2: pygobject-2.15.4-fix-format_error.diff
+Patch2: pygobject-2.26.0-format-strings.patch
 Patch3: pygobject-2.21.1-fix-link.patch
 License: LGPLv2+
 Group: Development/Python
@@ -63,7 +63,7 @@ generation tool.
 %prep
 %setup -q -n %oname-%version
 %patch -p1 -b .fixdetection
-%patch2 -p0
+%patch2 -p1
 %patch3 -p0
 
 %build
