@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.26.0
-%define release %mkrel 3
+%define version 2.28.3
+%define release %mkrel 1
 
 %define api 2.0
 %define major 0
@@ -12,16 +12,15 @@ Version: %{version}
 Release: %{release}
 Source0: http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.bz2
 Patch: pygobject-2.16.1-fixdetection.patch
-Patch2: pygobject-2.26.0-format-strings.patch
 Patch3: pygobject-2.21.1-fix-link.patch
 License: LGPLv2+
 Group: Development/Python
 Url: http://www.gnome.org
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: python-devel
-BuildRequires: glib2-devel >= 2.23.0-3mdv
+BuildRequires: glib2-devel >= 2.24.0
 BuildRequires: ffi5-devel
-BuildRequires: gobject-introspection-devel >= 0.9.1
+BuildRequires: gobject-introspection-devel >= 0.10.2
 BuildRequires: python-cairo-devel
 BuildRequires: gtk-doc
 BuildRequires: automake
@@ -63,7 +62,6 @@ generation tool.
 %prep
 %setup -q -n %oname-%version
 %patch -p1 -b .fixdetection
-%patch2 -p1
 %patch3 -p0
 
 %build
@@ -88,6 +86,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc README NEWS AUTHORS ChangeLog
 %py_platsitedir/pygtk*
+%py_platsitedir/gi
+%py_platsitedir/glib
+%py_platsitedir/gobject
 %py_platsitedir/gtk-2.0/
 
 %files -n %libname
