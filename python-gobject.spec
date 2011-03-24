@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
 %define version 2.28.3
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define api 2.0
 %define major 0
@@ -12,7 +12,7 @@ Version: %{version}
 Release: %{release}
 Source0: http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.bz2
 Patch: pygobject-2.16.1-fixdetection.patch
-Patch3: pygobject-2.21.1-fix-link.patch
+Patch3: pygobject-2.28.2-fix-link.patch
 License: LGPLv2+
 Group: Development/Python
 Url: http://www.gnome.org
