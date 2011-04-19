@@ -1,7 +1,7 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.28.3
-%define release %mkrel 2
+%define version 2.28.4
+%define release %mkrel 1
 
 %define api 2.0
 %define major 0
