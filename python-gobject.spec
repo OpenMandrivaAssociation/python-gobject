@@ -1,6 +1,6 @@
 %define oname pygobject
 %define name python-gobject
-%define version 2.28.4
+%define version 2.28.6
 %define release %mkrel 1
 
 %define api 2.0
@@ -10,7 +10,7 @@ Summary: GObject Python bindings
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.bz2
+Source0: http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.xz
 Patch: pygobject-2.16.1-fixdetection.patch
 Patch3: pygobject-2.28.2-fix-link.patch
 License: LGPLv2+
