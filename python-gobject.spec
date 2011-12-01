@@ -69,13 +69,13 @@ generation tool.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
 #gw this must be executable, it is used for building docs, e.g. in pyclutter
 chmod 755 %buildroot%_datadir/pygobject/xsl/fixxref.py
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdvver < 200900
 %post -n %libname -p /sbin/ldconfig
