@@ -7,7 +7,7 @@
 Summary:	GObject Python bindings 
 Name:		python-gobject
 Version:	2.28.6
-Release:	7
+Release:	8
 License:	LGPLv2+
 Group:		Development/Python
 Url:		http://www.gnome.org
