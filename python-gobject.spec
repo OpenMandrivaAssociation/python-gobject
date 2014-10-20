@@ -7,7 +7,7 @@
 Summary:	GObject Python bindings 
 Name:		python-gobject
 Version:	2.28.6
-Release:	10
+Release:	11
 License:	LGPLv2+
 Group:		Development/Python
 Url:		http://www.gnome.org
@@ -57,7 +57,8 @@ generation tool.
 %apply_patches
 
 %build
-%configure2_5x \
+export PYTHON=%__python2
+%configure \
 	--disable-introspection
 
 %make LIBS='-lpython2.7'
@@ -68,19 +69,19 @@ generation tool.
 chmod 755 %{buildroot}%{_datadir}/pygobject/xsl/fixxref.py
 
 %files
-%{py_platsitedir}/pygtk*
-%{py_platsitedir}/glib
-%{py_platsitedir}/gobject
-%{py_platsitedir}/gtk-2.0/
+%{py2_platsitedir}/pygtk*
+%{py2_platsitedir}/glib
+%{py2_platsitedir}/gobject
+%{py2_platsitedir}/gtk-2.0/
 
 %files -n %{libname}
-%{_libdir}/libpyglib-%{api}-python.so.%{major}*
+%{_libdir}/libpyglib-%{api}-python2.so.%{major}*
 
 %files devel
 %doc README NEWS AUTHORS ChangeLog
 %{_bindir}/pygobject-codegen-2.0
 %{_libdir}/pkgconfig/*.pc
-%{_libdir}/libpyglib-%{api}-python.so
+%{_libdir}/libpyglib-%{api}-python2.so
 %{_includedir}/pygtk-2.0/
 %{_datadir}/gtk-doc/html/pygobject/
 %{_datadir}/pygobject/
