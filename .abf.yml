@@ -1,2 +1,4 @@
+removed_sources:
+  pygobject-2.28.6.tar.xz: b1749ba806499f4c2780dbd1cbb363aaf1f41e78
 sources:
-  "pygobject-2.28.6.tar.xz": b1749ba806499f4c2780dbd1cbb363aaf1f41e78
+  pygobject-3.15.91.tar.xz: 35a4f88a58ae6989085e77574901d7b4df87298a

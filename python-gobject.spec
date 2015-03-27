@@ -6,12 +6,12 @@
 
 Summary:	GObject Python bindings 
 Name:		python-gobject
-Version:	2.28.6
-Release:	12
+Version:	3.15.91
+Release:	1
 License:	LGPLv2+
 Group:		Development/Python
 Url:		http://www.gnome.org
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.xz
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/pygobject/3.15/pygobject-%{version}.tar.xz
 Patch0:		pygobject-2.16.1-fixdetection.patch
 Patch1:		pygobject-2.28.2-fix-link.patch
 
@@ -57,7 +57,7 @@ generation tool.
 %apply_patches
 
 %build
-export PYTHON=%__python2
+export PYTHON=python2
 %configure \
 	--disable-introspection
 
@@ -85,4 +85,3 @@ chmod 755 %{buildroot}%{_datadir}/pygobject/xsl/fixxref.py
 %{_includedir}/pygtk-2.0/
 %{_datadir}/gtk-doc/html/pygobject/
 %{_datadir}/pygobject/
-
