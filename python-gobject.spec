@@ -22,7 +22,7 @@ BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(libffi)
 BuildRequires:	pkgconfig(pycairo)
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python2)
 %rename python-gobject
 Provides:	python-gobject2 = %{version}-%{release}
 
