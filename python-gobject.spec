@@ -4,8 +4,11 @@
 %define major 0
 %define libname %mklibname pyglib %{api} %{major}
 
+%define _disable_rebuild_configure 1
+%define _disable_lto 1
+
 Summary:	GObject Python bindings 
-Name:		python-gobject
+Name:		python2-gobject
 Version:	2.28.6
 Release:	14
 License:	LGPLv2+
@@ -20,7 +23,7 @@ BuildRequires:	pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(libffi)
 BuildRequires:	pkgconfig(pycairo)
 BuildRequires:	pkgconfig(python)
-
+%rename python-gobject
 Provides:	python-gobject2 = %{version}-%{release}
 
 %description
