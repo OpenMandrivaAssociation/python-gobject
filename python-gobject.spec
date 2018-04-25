@@ -1,30 +1,27 @@
 %define oname pygobject
 
-%define api 2.0
+%define api 3.0
 %define major 0
-%define libname %mklibname pyglib %{api} %{major}
 
-%define _disable_rebuild_configure 1
-%define _disable_lto 1
+#define _disable_rebuild_configure 1
+#define _disable_lto 1
 
 Summary:	GObject Python bindings 
-Name:		python2-gobject
-Version:	2.28.6
-Release:	14
+Name:		python-gobject
+Version:	3.28.2
+Release:	1
 License:	LGPLv2+
 Group:		Development/Python
 Url:		http://www.gnome.org
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.xz
-Patch0:		pygobject-2.16.1-fixdetection.patch
-Patch1:		pygobject-2.28.2-fix-link.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/pygobject/%(echo %{version} |cut -d. -f1-2)/%{oname}-%{version}.tar.xz
 
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(libffi)
 BuildRequires:	pkgconfig(pycairo)
 BuildRequires:	pkgconfig(python2)
-%rename python-gobject
-Provides:	python-gobject2 = %{version}-%{release}
+BuildRequires:	pkgconfig(py3cairo)
+BuildRequires:	pkgconfig(python)
 
 %description
 This archive contains bindings for the GObject, to be used in Python
@@ -33,12 +30,12 @@ and is usable to write moderately complex programs.  (see the
 examples directory for some examples of the simpler programs you could
 write).
 
-%package -n %{libname}
-Group:		System/Libraries
-Summary:	Python Glib bindings shared library
+%package -n python2-gobject
+Summary:	Python 2.x GObject bindings
+Group:		Development/Python
 
-%description -n %{libname}
-This archive contains bindings for the GObject, to be used in Python
+%description -n python2-gobject
+This archive contains bindings for the GObject, to be used in Python2
 It is a fairly complete set of bindings, it's already rather useful, 
 and is usable to write moderately complex programs.  (see the
 examples directory for some examples of the simpler programs you could
@@ -48,7 +45,6 @@ write).
 Group:		Development/C
 Summary:	Python-gobject development files
 Requires:	%{name} = %{version}-%{release}
-Requires:	%{libname} = %{version}-%{release}
 
 %description devel
 This contains the python-gobject development files, including C
@@ -59,33 +55,48 @@ generation tool.
 %setup -qn %{oname}-%{version}
 %apply_patches
 
-%build
-export PYTHON=%__python2
-%configure \
-	--disable-introspection
+export CC=%{__cc}
+export CFLAGS="%{optflags}"
+export LDFLAGS="%{ldflags}"
 
-%make LIBS='-lpython2.7'
+mkdir py2
+cd py2
+export PYTHON=%__python2
+../configure \
+	--prefix=%{_prefix} --libdir=%{_libdir} \
+	--enable-cairo
+cd ..
+
+mkdir py3
+cd py3
+export PYTHON=%__python
+../configure \
+	--prefix=%{_prefix} --libdir=%{_libdir} \
+	--enable-cairo
+
+%build
+cd py2
+%make_build LIBS='-lpython2.7'
+cd ../py3
+%make_build LIBS='-lpython3.7m'
 
 %install
-%makeinstall_std
-#gw this must be executable, it is used for building docs, e.g. in pyclutter
-chmod 755 %{buildroot}%{_datadir}/pygobject/xsl/fixxref.py
+cd py2
+%make_install
+cd ../py3
+%make_install
+
 
 %files
-%{py2_platsitedir}/pygtk*
-%{py2_platsitedir}/glib
-%{py2_platsitedir}/gobject
-%{py2_platsitedir}/gtk-2.0/
+%{py_platsitedir}/pygobject-*.egg-info
+%{py_platsitedir}/pygtkcompat
+%{py_platsitedir}/gi
 
-%files -n %{libname}
-%{_libdir}/libpyglib-%{api}-python2.so.%{major}*
+%files -n python2-gobject
+%{py2_platsitedir}/pygobject-*.egg-info
+%{py2_platsitedir}/pygtkcompat
+%{py2_platsitedir}/gi
 
 %files devel
-%doc README NEWS AUTHORS ChangeLog
-%{_bindir}/pygobject-codegen-2.0
 %{_libdir}/pkgconfig/*.pc
-%{_libdir}/libpyglib-%{api}-python2.so
-%{_includedir}/pygtk-2.0/
-%{_datadir}/gtk-doc/html/pygobject/
-%{_datadir}/pygobject/
-
+%{_includedir}/pygobject-%{api}
