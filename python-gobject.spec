@@ -16,6 +16,7 @@ Url:		http://www.gnome.org
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/pygobject/%(echo %{version} |cut -d. -f1-2)/%{oname}-%{version}.tar.xz
 
 BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(libffi)
 BuildRequires:	pkgconfig(pycairo)
