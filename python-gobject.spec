@@ -9,7 +9,7 @@
 Summary:	GObject Python bindings 
 Name:		python-gobject
 Version:	3.28.2
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		Development/Python
 Url:		http://www.gnome.org
@@ -22,7 +22,7 @@ BuildRequires:	pkgconfig(libffi)
 BuildRequires:	pkgconfig(pycairo)
 BuildRequires:	pkgconfig(python2)
 BuildRequires:	pkgconfig(py3cairo)
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python3)
 
 %description
 This archive contains bindings for the GObject, to be used in Python
