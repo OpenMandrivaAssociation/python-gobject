@@ -1,4 +1,5 @@
 %define oname pygobject
+%define _python_bytecompile_build  %nil
 
 %define api 2.0
 %define major 0
