@@ -10,8 +10,8 @@
 
 Summary:	GObject Python bindings 
 Name:		python2-gobject
-Version:	2.28.6
-Release:	16
+Version:	2.28.7
+Release:	1
 License:	LGPLv2+
 Group:		Development/Python
 Url:		http://www.gnome.org
@@ -58,17 +58,17 @@ generation tool.
 
 %prep
 %setup -qn %{oname}-%{version}
-%apply_patches
+%autopatch -p1
 
 %build
 export PYTHON=%__python2
 %configure \
 	--disable-introspection
 
-%make LIBS='-lpython2.7'
+%make_build LIBS='-lpython2.7'
 
 %install
-%makeinstall_std
+%make_install
 #gw this must be executable, it is used for building docs, e.g. in pyclutter
 chmod 755 %{buildroot}%{_datadir}/pygobject/xsl/fixxref.py
 
