@@ -1,92 +1,71 @@
-%define oname pygobject
-%define _python_bytecompile_build  %nil
+# https://gitlab.gnome.org/GNOME/pygobject/issues/253#note_317277
+# We don't need to ever pass --no-undefined to Meson because it is enabled by
+# default (see: b_lundef option) and is automatically disabled on build targets
+# (such as modules) that need it to not be set.
+%define _disable_ld_no_undefined 1
 
-%define api 2.0
-%define major 0
-%define libname %mklibname pyglib %{api} %{major}
+%define oname   pygobject
 
-%define _disable_rebuild_configure 1
-%define _disable_lto 1
+%global __provides_exclude_from ^(%{python3_sitelib})/(pygtkcompat|gi/pygtkcompat.py|gi/_gobject/__init__.py|gi/module.py|gi/__init__.py|gi/overrides/GIMarshallingTests.py)
+%global __requires_exclude_from ^(%{python3_sitelib})/(pygtkcompat|gi/pygtkcompat.py|gi/_gobject/__init__.py|gi/module.py|gi/__init__.py|gi/overrides/GIMarshallingTests.py)
 
-Summary:	GObject Python bindings 
-Name:		python2-gobject
-Version:	2.28.7
+%global __requires_exclude typelib\\(%%namespaces
+
+%define url_ver %(echo %{version} | cut -d "." -f -2)
+
+Summary:	Python bindings for GObject Introspection
+Name:		python-gobject
+Version:	3.38.0
 Release:	1
-License:	LGPLv2+
+License:	LGPLv2+ and MIT
 Group:		Development/Python
-Url:		http://www.gnome.org
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.xz
-Patch0:		pygobject-2.16.1-fixdetection.patch
-Patch1:		pygobject-2.28.2-fix-link.patch
-
+Url:		https://www.gnome.org/
+Source0:	https://download.gnome.org/sources/%{oname}/%{url_ver}/%{oname}-%{version}.tar.xz
+BuildRequires:	gnome-common
+BuildRequires:	gtk-doc
+BuildRequires:	meson
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(gtk-doc)
+BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(libffi)
-BuildRequires:	pkgconfig(pycairo)
-BuildRequires:	pkgconfig(python2)
-%rename python-gobject
-Provides:	python-gobject2 = %{version}-%{release}
+BuildRequires:	pkgconfig(py3cairo)
+BuildRequires:	pkgconfig(python)
+Requires:	python3-gobject = %{version}-%{release}
+Provides:	python3-gobject3-devel = %{version}-%{release}
+Provides:	python-gobject3-devel = %{version}-%{release}
+Obsoletes:	python-gobject3-devel < 3.36.1-2
+Obsoletes:	python-gobject3 < 3.36.1-2
 
 %description
-This archive contains bindings for the GObject, to be used in Python
-It is a fairly complete set of bindings, it's already rather useful, 
-and is usable to write moderately complex programs.  (see the
-examples directory for some examples of the simpler programs you could
-write).
+The %{name} package provides a convenient wrapper for the GObject library
+for use in Python programs.
 
-%package -n %{libname}
-Group:		System/Libraries
-Summary:	Python Glib bindings shared library
-
-%description -n %{libname}
-This archive contains bindings for the GObject, to be used in Python
-It is a fairly complete set of bindings, it's already rather useful, 
-and is usable to write moderately complex programs.  (see the
-examples directory for some examples of the simpler programs you could
-write).
-
-%package devel
+%package	devel
 Group:		Development/C
 Summary:	Python-gobject development files
-Requires:	%{name} = %{version}-%{release}
-Requires:	%{libname} = %{version}-%{release}
 
-%description devel
+%description	devel
 This contains the python-gobject development files, including C
-header, pkg-config file, gtk-doc generated API documentation and a code
-generation tool.
+header, pkg-config file.
 
 %prep
 %setup -qn %{oname}-%{version}
-%autopatch -p1
+
+# drop bundled egg-info
+rm -rf *.egg-info/
 
 %build
-export PYTHON=%__python2
-%configure \
-	--disable-introspection
-
-%make_build LIBS='-lpython2.7'
+%meson -Dpython=%{__python3}
+%meson_build
 
 %install
-%make_install
-#gw this must be executable, it is used for building docs, e.g. in pyclutter
-chmod 755 %{buildroot}%{_datadir}/pygobject/xsl/fixxref.py
-
-%files
-%{py2_platsitedir}/pygtk*
-%{py2_platsitedir}/glib
-%{py2_platsitedir}/gobject
-%{py2_platsitedir}/gtk-2.0/
-
-%files -n %{libname}
-%{_libdir}/libpyglib-%{api}-python2.so.%{major}*
+%meson_install
 
 %files devel
-%doc README NEWS AUTHORS ChangeLog
-%{_bindir}/pygobject-codegen-2.0
+%{_includedir}/*
 %{_libdir}/pkgconfig/*.pc
-%{_libdir}/libpyglib-%{api}-python2.so
-%{_includedir}/pygtk-2.0/
-%{_datadir}/gtk-doc/html/pygobject/
-%{_datadir}/pygobject/
 
+%files
+%{python3_sitelib}/gi/
+%{python3_sitearch}/gi/
+%{python3_sitelib}/pygtkcompat/
+%{python3_sitearch}/PyGObject-%{version}.egg-info
