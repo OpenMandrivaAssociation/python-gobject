@@ -14,7 +14,7 @@ Version:	2.28.7
 Release:	1
 License:	LGPLv2+
 Group:		Development/Python
-Url:		http://www.gnome.org
+Url:		https://www.gnome.org
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.tar.xz
 Patch0:		pygobject-2.16.1-fixdetection.patch
 Patch1:		pygobject-2.28.2-fix-link.patch
