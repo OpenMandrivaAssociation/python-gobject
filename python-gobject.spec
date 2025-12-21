@@ -19,6 +19,11 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/pygobject/%{oname}-%{version}.ta
 Patch0:		pygobject-2.16.1-fixdetection.patch
 Patch1:		pygobject-2.28.2-fix-link.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(libffi)
